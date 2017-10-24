@@ -1,0 +1,14 @@
+{
+  "name": "cribbage-client",
+  "version": "0.1.0",
+  "description": "An incredibly basic cribbage UI for drag and drop cards and scoring hands.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "cribbage"
+  ],
+  "author": "Derrick Plotsky <derrick@stembolt.com>",
+  "license": "MIT"
+}

@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "jsx": "react",
+        "target": "es2015",
+        "outDir": "dist"
+    },
+    "include": [
+        "src"
+    ]
+}
