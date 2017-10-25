@@ -4,11 +4,33 @@
   "description": "An incredibly basic cribbage UI for drag and drop cards and scoring hands.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack",
+    "start": "http-server",
+    "watch": "webpack --watch --colors",
+    "sass": "node-sass -w src/styles.scss dist/styles.css"
   },
   "keywords": [
     "cribbage"
   ],
   "author": "Derrick Plotsky <derrick@stembolt.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/classnames": "^2.2.3",
+    "@types/react": "^16.0.18",
+    "@types/react-beautiful-dnd": "^2.3.0",
+    "@types/react-dom": "^16.0.2",
+    "classnames": "^2.2.5",
+    "core-js": "^2.5.1",
+    "http-server": "^0.10.0",
+    "node-sass": "^4.5.3",
+    "react": "^16.0.0",
+    "react-beautiful-dnd": "^2.4.1",
+    "react-dom": "^16.0.0",
+    "ts-loader": "^3.0.5",
+    "typescript": "^2.5.3",
+    "webpack": "^3.8.1",
+    "whatwg-fetch": "^2.0.3"
+  }
 }

@@ -1,0 +1,22 @@
+
+$standard-color: lightgrey;
+$dragging-color: lightblue;
+$error-color: indianred;
+
+.app {
+    display: flex;
+}
+
+.bucket {
+    width: 15.0em;
+    background: $standard-color;
+    padding: 0.5em;
+}
+
+.dragging {
+    background: $dragging-color;
+}
+
+.error {
+    background: $error-color;
+}
