@@ -1,22 +1,69 @@
 
-$standard-color: lightgrey;
-$dragging-color: lightblue;
+$bucket-color: grey;
+$bucket-dragging-color: lightblue;
+$card-color: whitesmoke;
+$card-dragging-color: lightgreen;
 $error-color: indianred;
+$score-color: limegreen;
+$top-margin: 3.0em;
 
 .app {
     display: flex;
+    text-align: center;
 }
 
-.bucket {
+.bucket-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75em;
+    margin: 0.75em;
+}
+
+.header {
+    padding-bottom: 0.5em;
+}
+
+.card-bucket {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;    
     width: 15.0em;
-    background: $standard-color;
-    padding: 0.5em;
+    background: $bucket-color;
+    height: 225em;
+    &.drag-over {
+        background: $bucket-dragging-color;
+    }
+    &.error {
+        background: $error-color;
+    }
 }
 
-.dragging {
-    background: $dragging-color;
+.score-container {
+    margin-top: $top-margin;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+
+    button {
+        height: 2.5em;
+        width: 7.5em;
+        margin: 0.5em;
+    }
+    > .score {
+        color: $score-color;
+        margin: 0.5em;
+    }
 }
 
-.error {
-    background: $error-color;
+.card {
+    width: 12.0em;
+    user-select: none;
+    padding: 1.0em;
+    margin: 0.5em;
+    background: $card-color;
+}
+
+.card-dragging {
+    background: $card-dragging-color;
 }
