@@ -20,9 +20,9 @@ export class Card extends React.Component<CardProps, any> {
 
     getCardClass(dragging: boolean): string {
         const drag = ({
-            [CardClasses.DRAGGING]: dragging
+            [Classes.DRAGGING]: dragging
         } as any);
-        return classNames(CardClasses.CARD, drag);
+        return classNames(Classes.CARD, drag);
     }
 
     render() {
@@ -45,7 +45,7 @@ export class Card extends React.Component<CardProps, any> {
     }
 }
 
-export enum CardClasses {
+export enum Classes {
     CARD = "card",
     DRAGGING = "card-dragging"
 }

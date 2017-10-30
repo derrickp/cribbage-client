@@ -4,7 +4,7 @@ $bucket-dragging-color: lightblue;
 $card-color: whitesmoke;
 $card-dragging-color: lightgreen;
 $error-color: indianred;
-$score-color: limegreen;
+$score-color: darkgreen;
 $top-margin: 3.0em;
 
 .app {
@@ -12,7 +12,7 @@ $top-margin: 3.0em;
     text-align: center;
 }
 
-.bucket-container {
+.list-container {
     display: flex;
     flex-direction: column;
     padding: 0.75em;
@@ -23,11 +23,9 @@ $top-margin: 3.0em;
     padding-bottom: 0.5em;
 }
 
-.card-bucket {
+.card-list {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;    
     width: 15.0em;
     background: $bucket-color;
     height: 225em;
@@ -50,14 +48,16 @@ $top-margin: 3.0em;
         width: 7.5em;
         margin: 0.5em;
     }
-    > .score {
-        color: $score-color;
-        margin: 0.5em;
-    }
+}
+
+.score {
+    color: $score-color;
+    margin: 0.5em;
 }
 
 .card {
     width: 12.0em;
+    height: 1.0em;
     user-select: none;
     padding: 1.0em;
     margin: 0.5em;

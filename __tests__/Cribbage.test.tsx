@@ -38,7 +38,10 @@ describe("Cribbage", () => {
 
     it("renders the app", () => {
         const deck = createCards("AS 2H 3H");
-        const component = create(<Cribbage deck={deck} />).toJSON();
+        const getScore = () => {
+            return Promise.resolve(2);
+        };
+        const component = create(<Cribbage deck={deck} calculateScore={getScore} />).toJSON();
         expect(component).not.toBe(undefined);
         expect(component).toMatchSnapshot();
     });

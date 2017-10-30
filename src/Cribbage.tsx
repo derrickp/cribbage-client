@@ -6,18 +6,18 @@ import { DragDropContext, DropResult, DraggableLocation } from 'react-beautiful-
 
 import { Card, sortByName, sortBySuit, sortOptions } from "./data/Card";
 import { Option } from "./data/Option";
-import { CardBucket } from "./components/CardBucket";
+import { CardList } from "./components/CardList";
 import { Common } from "./classes";
-
-import { calculateScore } from "./api/score";
+import { Score } from "./components/Score";
 
 export interface CribbageProps {
     deck: Card[];
+    calculateScore: (hand: Card[], cutCard: Card, isCrib?: boolean) => Promise<number>;
 }
 
-export interface CribbageState {
-    deck: Card[];
-    sortOption: Option;
+interface CribbageState {
+    deck: Card[]; // Have this in state and props so that it can be edited (cards moved in and out)
+    sortOption: Option; // The current sort option for the deck
     hand: Card[];
     cut: Card[];
     isCrib: boolean;
@@ -44,7 +44,7 @@ export class Cribbage extends React.Component<CribbageProps, CribbageState> {
     }
 
     async calculateScore() {
-        const score = await calculateScore(this.state.hand, this.state.cut[0], this.state.isCrib);
+        const score = await this.props.calculateScore(this.state.hand, this.state.cut[0], this.state.isCrib);
         this.setState({
             score
         });
@@ -91,10 +91,6 @@ export class Cribbage extends React.Component<CribbageProps, CribbageState> {
     }
 
     render() {
-        if (!this.state.deck || this.state.deck.length <= 0) {
-            return <div>Loading deck...</div>;
-        }
-
         const className = classNames(Classes.APP);
         const handError = this.state.hand.length > 4 ? Common.ERROR : "";
         const cutError = this.state.cut.length > 1 ? Common.ERROR : "";
@@ -102,16 +98,16 @@ export class Cribbage extends React.Component<CribbageProps, CribbageState> {
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <div className={className}>
-                    <CardBucket key={DroppableIds.DECK} id={DroppableIds.DECK} name="Deck (available cards)" cards={this.state.deck} sortCards={this.sortCards} sortEnabled={true} sortOptions={sortOptions} sortValue={this.state.sortOption}>
-                    </CardBucket>
-                    <CardBucket key={DroppableIds.HAND} id={DroppableIds.HAND} name="Hand (max: 4)" cards={this.state.hand} additionalClass={handError} sortCards={this.sortCards} sortEnabled={false}>
-                    </CardBucket>
-                    <CardBucket key={DroppableIds.CUT} id={DroppableIds.CUT} name="Cut Card (max: 1)" cards={this.state.cut} additionalClass={cutError} sortEnabled={false}>
-                    </CardBucket>
+                    <CardList key={DroppableIds.DECK} id={DroppableIds.DECK} name="Deck (available cards)" cards={this.state.deck} sortCards={this.sortCards} sortEnabled={true} sortOptions={sortOptions} sortValue={this.state.sortOption}>
+                    </CardList>
+                    <CardList key={DroppableIds.HAND} id={DroppableIds.HAND} name="Hand (max: 4)" cards={this.state.hand} additionalClass={handError} sortCards={this.sortCards} sortEnabled={false}>
+                    </CardList>
+                    <CardList key={DroppableIds.CUT} id={DroppableIds.CUT} name="Cut Card (max: 1)" cards={this.state.cut} additionalClass={cutError} sortEnabled={false}>
+                    </CardList>
                     <div className={Classes.SCORE_CONTAINER}>
                         <label><input type="checkbox" checked={this.state.isCrib} onChange={this.toggleIsCrib}></input>Crib?</label>
                         <button disabled={calcDisabled} className={Classes.SCORE_BUTTON} onClick={this.calculateScore}>Get Score</button>
-                        {<div className={Classes.SCORE}>{`Your current score is ${this.state.score}`}</div>}
+                        <Score score={this.state.score} />
                     </div>
                 </div>
             </DragDropContext>
@@ -128,7 +124,6 @@ export enum DroppableIds {
 export enum Classes {
     APP = "app",
     SCORE_BUTTON = "score-button",
-    SCORE = "score",
     SCORE_CONTAINER = "score-container"
 };
 

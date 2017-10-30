@@ -9,7 +9,7 @@ import { Card } from "../data/Card";
 import { Card as CardComponent } from "./Card";
 import { Option } from "../data/Option";
 
-export interface CardBucketProps {
+export interface CardListProps {
     id: string;
     name: string;
     cards: Card[];
@@ -20,13 +20,13 @@ export interface CardBucketProps {
     additionalClass?: string;
 }
 
-export interface CardBucketState {
+interface CardListState {
     filter: string;
 }
 
-export class CardBucket extends React.Component<CardBucketProps, CardBucketState> {
+export class CardList extends React.Component<CardListProps, CardListState> {
 
-    constructor(props: CardBucketProps) {
+    constructor(props: CardListProps) {
         super(props);
         this.state = {
             filter: ""
@@ -37,9 +37,9 @@ export class CardBucket extends React.Component<CardBucketProps, CardBucketState
 
     getBucketClass(dragging: boolean): string {
         const classMap = ({
-            [BucketClasses.DRAGGING]: dragging
+            [Classes.DRAGGING]: dragging
         } as any);
-        return classNames(BucketClasses.BUCKET, classMap, this.props.additionalClass);
+        return classNames(Classes.LIST, classMap, this.props.additionalClass);
     }
 
     sortChanged(option: Option) {
@@ -53,7 +53,7 @@ export class CardBucket extends React.Component<CardBucketProps, CardBucketState
         return (
             <Droppable droppableId={this.props.id}>
                 {(provided, snapshot) => (
-                    <div className={BucketClasses.BUCKET_CONTAINER}>
+                    <div className={Classes.LIST_CONTAINER}>
                         <div className="header">
                             <h4>
                                 {this.props.name}
@@ -73,8 +73,8 @@ export class CardBucket extends React.Component<CardBucketProps, CardBucketState
     }
 }
 
-export enum BucketClasses {
-    BUCKET = "card-bucket",
-    BUCKET_CONTAINER = "bucket-container",
+export enum Classes {
+    LIST = "card-list",
+    LIST_CONTAINER = "list-container",
     DRAGGING = "drag-over"
 };
