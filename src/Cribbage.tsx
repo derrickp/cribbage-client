@@ -8,11 +8,13 @@ import { Card, sortByName, sortBySuit, sortOptions } from "./data/Card";
 import { Option } from "./data/Option";
 import { CardList } from "./components/CardList";
 import { Common } from "./classes";
-import { Score } from "./components/Score";
+import { Hand } from "./data/Hand";
+import { Scorer } from "./data/Scorer";
+import { Score as ScoreComponent } from "./components/Score";
 
 export interface CribbageProps {
     deck: Card[];
-    calculateScore: (hand: Card[], cutCard: Card, isCrib?: boolean) => Promise<number>;
+    scorer: Scorer;
 }
 
 interface CribbageState {
@@ -44,7 +46,14 @@ export class Cribbage extends React.Component<CribbageProps, CribbageState> {
     }
 
     async calculateScore() {
-        const score = await this.props.calculateScore(this.state.hand, this.state.cut[0], this.state.isCrib);
+        const hand: Hand = {
+            cards: this.state.hand,
+            cut: this.state.cut[0],
+            isCrib: this.state.isCrib
+        };
+        this.props.scorer.hand = hand;
+        await this.props.scorer.calculate();
+        const score = this.props.scorer.total;
         this.setState({
             score
         });
@@ -107,7 +116,7 @@ export class Cribbage extends React.Component<CribbageProps, CribbageState> {
                     <div className={Classes.SCORE_CONTAINER}>
                         <label><input type="checkbox" checked={this.state.isCrib} onChange={this.toggleIsCrib}></input>Crib?</label>
                         <button disabled={calcDisabled} className={Classes.SCORE_BUTTON} onClick={this.calculateScore}>Get Score</button>
-                        <Score score={this.state.score} />
+                        <ScoreComponent score={this.state.score} />
                     </div>
                 </div>
             </DragDropContext>

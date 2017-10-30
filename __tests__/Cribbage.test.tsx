@@ -7,8 +7,17 @@ import { DraggableLocation } from "react-beautiful-dnd";
 
 import { Card } from "../src/data/Card";
 import { Cribbage, DroppableIds, moveCards } from "../src/Cribbage";
+import { Scorer } from "../src/data/Scorer";
 
 import { createCards } from "./support/cards";
+
+class MockScorer implements Scorer {
+    hand;
+    total = 2;
+    calculate(): Promise<void> {
+        return Promise.resolve();
+    }
+}
 
 describe("Cribbage", () => {
     it("moves cards between deck and hand as expected", () => {
@@ -41,7 +50,8 @@ describe("Cribbage", () => {
         const getScore = () => {
             return Promise.resolve(2);
         };
-        const component = create(<Cribbage deck={deck} calculateScore={getScore} />).toJSON();
+        const scorer = new MockScorer();
+        const component = create(<Cribbage deck={deck} scorer={scorer} />).toJSON();
         expect(component).not.toBe(undefined);
         expect(component).toMatchSnapshot();
     });
