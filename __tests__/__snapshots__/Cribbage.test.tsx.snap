@@ -5,7 +5,7 @@ exports[`Cribbage renders the app 1`] = `
   className="app"
 >
   <div
-    className="bucket-container"
+    className="list-container"
   >
     <div
       className="header"
@@ -113,7 +113,7 @@ exports[`Cribbage renders the app 1`] = `
       </div>
     </div>
     <div
-      className="card-bucket"
+      className="card-list"
     >
       <div>
         <div
@@ -184,7 +184,7 @@ exports[`Cribbage renders the app 1`] = `
     </div>
   </div>
   <div
-    className="bucket-container"
+    className="list-container"
   >
     <div
       className="header"
@@ -194,11 +194,11 @@ exports[`Cribbage renders the app 1`] = `
       </h4>
     </div>
     <div
-      className="card-bucket"
+      className="card-list"
     />
   </div>
   <div
-    className="bucket-container"
+    className="list-container"
   >
     <div
       className="header"
@@ -208,7 +208,7 @@ exports[`Cribbage renders the app 1`] = `
       </h4>
     </div>
     <div
-      className="card-bucket"
+      className="card-list"
     />
   </div>
   <div
