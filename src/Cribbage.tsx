@@ -10,9 +10,10 @@ import { CardBucket } from "./components/CardBucket";
 import { Common } from "./classes";
 
 import { calculateScore } from "./api/score";
-import { getCards } from "./api/cards";
 
-export interface CribbageProps { }
+export interface CribbageProps {
+    deck: Card[];
+}
 
 export interface CribbageState {
     deck: Card[];
@@ -28,7 +29,7 @@ export class Cribbage extends React.Component<CribbageProps, CribbageState> {
         super(props);
         const nameSortOption = sortOptions.find(option => option.value === "name");
         this.state = {
-            deck: [],
+            deck: Array.from(props.deck),
             hand: [],
             cut: [],
             isCrib: false,
@@ -40,16 +41,6 @@ export class Cribbage extends React.Component<CribbageProps, CribbageState> {
         this.calculateScore = this.calculateScore.bind(this);
         this.toggleIsCrib = this.toggleIsCrib.bind(this);
         this.sortCards = this.sortCards.bind(this);
-    }
-
-    async componentWillMount() {
-        const deck = (await getCards()).sort((a, b) => sortByName(a, b));
-
-        if (deck && deck.length) {
-            this.setState({
-                deck
-            });
-        }
     }
 
     async calculateScore() {
@@ -128,7 +119,7 @@ export class Cribbage extends React.Component<CribbageProps, CribbageState> {
     }
 }
 
-enum DroppableIds {
+export enum DroppableIds {
     DECK = "deck",
     HAND = "hand",
     CUT = "cut"
@@ -142,7 +133,7 @@ export enum Classes {
 };
 
 // a little function to help us with reordering the result
-function moveCards(initialDeck: Card[], initialHand: Card[], initialCut: Card[], sourceLocation: DraggableLocation, destinationLocation: DraggableLocation) {
+export function moveCards(initialDeck: Card[], initialHand: Card[], initialCut: Card[], sourceLocation: DraggableLocation, destinationLocation: DraggableLocation) {
     // Make a copy of our arrays
     const deck = Array.from(initialDeck);
     const hand = Array.from(initialHand);

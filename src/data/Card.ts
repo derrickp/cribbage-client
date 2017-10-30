@@ -5,8 +5,8 @@ export interface Card {
     name: string;
     suit: string;
     fullName: string;
-    image: string;
     key: string;
+    image?: string;
 }
 
 export const sortOptions: Option[] = [
